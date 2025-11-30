@@ -1,5 +1,5 @@
 function string_simulation_template01()
-    num_masses = 3;
+    num_masses = 2;
     total_mass = 5;
     tension_force = 5;
     string_length = 10;
@@ -9,6 +9,8 @@ function string_simulation_template01()
     
     amplitude_Uf = 3;
     omega_Uf = 6;
+
+
 
     %list of x points (including the two endpoints)
     xlist = linspace(0,string_length,num_masses+2);
@@ -29,18 +31,34 @@ function string_simulation_template01()
     my_rate_func = @(t_in,V_in) string_rate_func01(t_in,V_in,string_params);
     
     %initial conditions
-    U0 = %your code here
-    dUdt0 = %your code here
+    U0 = zeros(num_masses,1); % initial disp
+    dUdt0 = zeros(num_masses,1); % velocity
     V0 = [U0;dUdt0];
-    tspan = %your code here
+    tspan = linspace(0,20,2000);
+
     %run the integration
-    % [tlist,Vlist] = ode_45(my_rate_func,tspan,V0,...); 
+    [tlist,Vlist] = ode45(my_rate_func,tspan,V0); 
     %  input all  time values i want for ode 45
     %your code to generate an animation of the system
-
+    Ulist = Vlist(:, 1:num_masses); % displacements
     %initialize plot
     % call plot and  save as output of  variale
     %  for loop that goes thorugh everytime step and updates plot for each
     %  time  setpggtf
     %  set  x data and  y data
+    figure;
+    h = plot(xlist, [0; Ulist(1,:)'; Uf_func(tlist(1))], 'LineWidth', 2);
+    ylim([-5 5]);
+    xlabel('x'); ylabel('displacement');
+    
+    for k = 1:length(tlist)
+        uL = 0;
+        uInterior = Ulist(k,:)';
+        uR = Uf_func(tlist(k));
+    
+        y_now = [uL; uInterior; uR];
+    
+        set(h, 'YData', y_now);
+        drawnow;
+    end
 end
