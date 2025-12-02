@@ -28,8 +28,8 @@ function [M_mat,K_mat] = construct_2nd_order_matrices(string_params)
     my_Laplacian = -2*I_n + circshift(I_n,1) + circshift(I_n,-1);
     
     % Delete wrap-around
-    my_Laplacian(1,end) = my_Laplacian(1,end) - 1;
-    my_Laplacian(end,1) = my_Laplacian(end,1) - 1;
+    my_Laplacian(1,end) = 0;
+    my_Laplacian(end,1) = 0;
     
     K_mat = (string_params.Tf / string_params.dx) * my_Laplacian;
     

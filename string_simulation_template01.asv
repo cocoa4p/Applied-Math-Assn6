@@ -26,7 +26,7 @@ function string_simulation_template01()
 
     [V,D] = eig(K_mat,M_mat);
 
-    omega_index = 5;
+    omega_index = 7;
 
     mode_shape = V(:,omega_index);
 
@@ -61,24 +61,18 @@ function string_simulation_template01()
     %  for loop that goes thorugh everytime step and updates plot for each
     %  time  setpggtf
     %  set  x data and  y data
+    figure;
+    hold on
+    h = plot(xlist, [0; Ulist(1,:)'; Uf_func(tlist(1))],'o-', 'LineWidth', 2, ...
+        'markerfacecolor','r','markeredgecolor','r','Color','k','MarkerSize',5);
+
+    mode_plot  =  plot(xlist, [0; Ulist(1,:)'; Uf_func(tlist(1))],'o-', 'LineWidth', 2, ...
+        'markerfacecolor','g','markeredgecolor','g','Color','b','MarkerSize',5);
 
     ymax = max(max(Ulist));
     ymin = min(min(Ulist));
 
     yq = max([abs(ymax),abs(ymin),amplitude_Uf]);
-
-    figure;
-    hold on
-
-    mode_factor = max(abs(ymax),abs(ymin)) / max(abs(mode_shape));
-    plot(xlist, mode_factor*[0; mode_shape; 0],'o-', 'LineWidth', 2, ...
-        'markerfacecolor','g','markeredgecolor','g','Color','b','MarkerSize',5);
-
-    h = plot(xlist, [0; Ulist(1,:)'; Uf_func(tlist(1))],'o-', 'LineWidth', 2, ...
-        'markerfacecolor','r','markeredgecolor','r','Color','k','MarkerSize',5);
-
-    
-
     
 
     ylim(1.2*[-yq, yq]);
