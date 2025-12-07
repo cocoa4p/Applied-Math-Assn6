@@ -1,6 +1,6 @@
 function string_simulation_template01()
     num_masses = 8;
-    total_mass = 5;
+    total_mass = 8;
     tension_force = 5;
     string_length = 10;
     damping_coeff = .0001;
@@ -76,8 +76,8 @@ function string_simulation_template01()
 
     h = plot(xlist, [0; Ulist(1,:)'; Uf_func(tlist(1))],'o-', 'LineWidth', 2, ...
         'markerfacecolor','r','markeredgecolor','r','Color','k','MarkerSize',5);
-
-    
+    title('Predicted Mode Shape vs Actual Vibration');
+    legend(sprintf('Masses %d: Mode = %d', num_masses, omega_index));
 
     
 
