@@ -102,16 +102,10 @@ function modal_continuous_vs_discrete()
     N_low = 4;
     N_high = 80;
 
-    figure;
-    tiledlayout(1,2);
-
-    % ----- low N -----
-    nexttile;
+    figure(1);
     plot_harmonics(N_low, total_mass, tension_force, string_length);
     title('Harmonics: N = 8');
-
-    % ----- high N -----
-    nexttile;
+    figure(2)
     plot_harmonics(N_high, total_mass, tension_force, string_length);
     title('Harmonics: N = 80');
 
@@ -139,8 +133,8 @@ function plot_harmonics(N, M_total, Tf, L)
     n_vals = 1:N;
     omega_cont = n_vals * pi * c / L;
 
-    plot(n_vals, omega_disc(1:N), 'bo-', 'LineWidth', 1.5, 'MarkerSize', 5); hold on;
-    plot(n_vals, omega_cont, 'ro-', 'LineWidth', 1.5, 'MarkerSize', 5);
+    plot(n_vals, omega_disc(1:N), 'b.-', 'LineWidth', 1.5, 'MarkerSize', 10, 'MarkerFaceColor','blue'); hold on;
+    plot(n_vals, omega_cont, 'r.-', 'LineWidth', 1.5, 'MarkerSize', 10, 'MarkerFaceColor','red');
     xlabel('Mode Index n');
     ylabel('Frequency ω');
     legend('Discrete','Continuous');
